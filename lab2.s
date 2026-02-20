@@ -12,26 +12,48 @@ LENGTH: .word #length of loop
 .section .text
 .globl hammer
 hammer: 
+    #Assign HAM to %EBX
+    mov $0x50, %esi #make 0x50 an index value
+    lea ham, %rdi #say ram is rdi
+
+    #Store strings (USE LEA)
+    mov $STR1, %ebx
+    mov $STR2, %edx
+
 
 #len two strings, but length of smaller into variable
+
     movw $len1, %AX #move length1 into AX
     cmpw $len2, %AX #Compare string lengths 
     je SWAP
-
-    SWAP: 
-        movw $len2, %AX #PUT smaller length into AX
-        ret 
-
-
-    movw %AX, %CX
+    
+    
+    movw $0, %CX #initialize counter
+    mov $0, %ch #HAM counter 
 
     #proper length has been aquired (YAY) create loop with comparisons
     HAMLOOP: 
     #XOR each bit!
-        xor STR1, STR2
-
-        je incHAM
-    #set up a counter
-    dec %CX 
+        movb (%ebx), %ah #move first bit into ah
+        movb (%edx), %al 
+        xorb %ah, %al #XORRRRR
 
 
+
+        #je incHAM
+    
+        inc %CX 
+        cmp %AX, %CX
+        jae HAMLOOP #if length is greater than counter 
+        ret
+
+    mov %ch, ham 
+
+
+SWAP: 
+    movw $len2, %AX #PUT smaller length into AX
+    ret 
+
+incHAM: 
+    inc %ch 
+    ret
