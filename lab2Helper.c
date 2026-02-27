@@ -1,13 +1,14 @@
 #include <stdio.h> 
 extern unsigned int ham_dist;
 
-extern void hammer(void); 
+extern int hammer(void); 
 
 int main()
-{hammer(); 
+{
+    int distance = hammer(); 
     printf("Hamming Distance: ");
 
-    printf("%02X ", ham_dist); //ham[0x50]);
+    printf("%d\n ", distance); //ham[0x50]);
     
     printf("\n"); 
     return 0; 
