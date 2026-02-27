@@ -13,6 +13,7 @@ ham_dist: .skip 4 #reserve 2 bytes for hamming distance
 .section .text
 .globl hammer
 hammer: 
+    xor %eax, %eax
     movl $0, %eax #move the value 0 to eax
     #movl %eax, ham_dist # initialize ham_dist to 0
     
@@ -20,7 +21,6 @@ hammer:
     #Store strings (USE LEA) 
     xor %esi, %esi 
     xor %edi, %edi
-
     lea STR1, %esi # chuck memory address of STR1 to esi
     lea STR2, %edi #memory address of STR2 to eDI
 
@@ -36,7 +36,7 @@ hammer:
     byte_loop: 
         #move byte into dh, bl
         xor %ebx, %ebx #clear ebx
-        
+
         movb (%esi), %dh #move first byte into dh
         movb (%edi), %bl 
 
